@@ -53,6 +53,17 @@ namespace CsvParser
                 .Select(entry => entry.First(pair => pair.Key == key).Value)
                 .ToList();
         }
+        
+        public IEnumerable<KeyValuePair<string, string>> GetValuesByKeys(params string[] keys)
+        {
+            var results =  
+                from kvp in Lines 
+                from entry in kvp 
+                where keys.Contains(entry.Key) 
+                select entry;
+            
+            return results.ToList();
+        }
 
         public string GetKeyByValue(string value)
         {
